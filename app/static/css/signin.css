@@ -1,0 +1,48 @@
+/* body {
+  visibility: hidden;
+} */
+
+.container {
+  margin-top: 100px;
+  width: 522px;
+  background-color: white;
+  border-radius: 15px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 402px;
+  padding: 60px 0;
+  margin: 0 auto;
+  border: 0;
+}
+.card__login {
+  display: flex;
+  flex-direction: column;
+}
+.card__login * {
+  border-radius: 10px;
+}
+.login__btn {
+  color: white;
+  background-color: #3397cf;
+}
+
+.login__btn:focus {
+  outline: none;
+  box-shadow: none;
+  color: white;
+}
+.login__btn:hover {
+  color: white;
+}
+input {
+  height: 44px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  outline: none;
+  padding: 10px;
+}
+.error__text {
+  color: rgb(232, 82, 82);
+}

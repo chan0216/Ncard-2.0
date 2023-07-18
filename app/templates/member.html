@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %} {% block title %}
+<link rel="stylesheet" href="../static/css/member.css" />{% endblock %} {% block
+main %}
+<div class="member d-flex justify-content-center mt-5">
+  <div class="member__card d-flex align-items-center flex-column mt-5">
+    <!-- <h3 id="name"></h3>
+    <p id="school"></p> -->
+    <!-- <div class="btn"></div> -->
+    <div class="validation">
+      <!-- <i class="bi bi-person-circle" id="person"></i> -->
+      <p>立即驗證個人身份</p>
+      <p>啟用 Ncard 完整功能</p> 
+      <a href="/verify">
+        <div class="val-btn">
+          立即驗證
+        </div>
+      </a>
+    </div>
+    <div class="show_profile">
+      <div class="showname"></div>
+      <div class="showschool"></div>
+      <div class="check-btn">
+        <a href="/my/profile">查看卡稱頁面</a>
+      </div>
+    </div>
+    <a href="/my/like">
+      <div class="ncardlike mt-3">
+        <i class="bi bi-heart-fill me-2"></i>
+        我喜歡的文章
+      </div>
+    </a>
+    <a href="/my/profile">
+      <div class="ncardintro mt-1">
+        <i class="bi bi-wallet2 me-2"></i>
+        抽卡自我介紹
+      </div>
+    </a>
+    <a href="/my/friends">
+      <div class="ncardfriend mt-1">
+        <i class="bi bi-people-fill me-2"></i>
+        我的卡友
+      </div>
+    </a>
+  </div>
+  <div class="member__post mt-4">{% block section %} {% endblock %}</div>
+</div>
+{% endblock %}
+{% block link %}
+<script type="module" src="../static/js/member.js"></script>
+{% endblock %}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% extends "base.html" %} {% block title %}
+<link rel="stylesheet" href="../static/css/post.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.4/purify.min.js"></script>
+<title>Ncard</title>
+<link
+rel="icon"
+type="image/x-icon"
+href="../static/image/ncard_icon.png"
+/>
+{% endblock %} {% block main %}
+<main>
+  <div class="post__container mt-5">
+    <div class="post__card">
+      <div class="post__originator">
+        <div class="originator"></div>
+      </div>
+    </div>
+    <div class="like__bar">
+      <div class="like__nums">
+        <div class="comment__nums">
+          <i class="bi bi-suit-heart-fill" style="font-size: 20px"></i>
+          <p class="like"></p>
+          <p>留言</p>
+          <p class="comment"></p>
+        </div>
+      </div>
+      <i
+        class="bi bi-heart-fill"
+        style="font-size: 20px; cursor: pointer"
+        id = "like_element"
+      ></i>
+    </div>
+    <div class="comment__container">
+      <div class="comment_card">
+      </div>
+      <div id="load__container">
+        <i id="loading" class="bi bi-arrow-repeat"></i>
+      </div>
+    </div>
+    <div class="post__comment">
+      <p class="comment__placeholder">留言......</p>
+    </div>
+      <p class="comment_warning"></p>
+    </div>
+    <div class="full__comment">
+      <div class="user__info">
+        <div class="d-flex">
+          <div class="user__gender"></div>
+          <div class="d-flex flex-column">
+            <p class="post__school"></p>
+            <div class="d-flex">
+              <p class="user__floor"></p>
+              <p class="user__time"></p>
+            </div>
+          </div>
+        </div>
+        <i
+          class="bi bi-arrows-angle-expand"
+          style="cursor: pointer"
+        ></i>
+      </div>
+
+      <div
+        class="comment__box"
+        contenteditable="true"
+        placeholder="內容......"
+      ></div>
+      <div
+        class="newpost__btnbar d-flex justify-content-between align-items-center"
+      >
+        <label class="btninfo">
+          <input
+            id="upload_img"
+            style="display: none"
+            accept="image/png, image/jpeg"
+            type="file"
+          />
+          <i class="bi bi-image-fill" style="font-size: 24px"></i>
+        </label>
+        <div class="btn d-flex align-items-center">
+          <button class="cancel me-2">取消</button>
+          <button class="submit">送出</button>
+        </div>
+      </div>
+
+      <!-- </div> -->
+
+      {% endblock %} {% block link %}
+      <script  type="module" src="../static/js/post.js"></script>
+      {% endblock %}
+    </div>
+  </div>
+</main>

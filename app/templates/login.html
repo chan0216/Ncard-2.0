@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %} 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<link rel="stylesheet" href="../static/css/signin.css" />
+<title>註冊</title>
+{% endblock %}
+
+{% block main %}
+<main>
+  <div class="container d-flex align-items-center">
+    <div class="card">
+      <div
+        id="g_id_onload"
+        data-client_id="312350990373-e5rs7t2t9oomvbdrckop2sto4ijbpea3.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-auto_prompt="false"
+        data-callback="handleCredentialResponse"
+      ></div>
+
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="large"
+        referrerpolicy="no-referrer-when-downgrade"
+        data-logo_alignment="left"
+        data-width="403"
+      ></div>
+      <hr />
+      <form class="card__login" id="loginForm">
+        <span>常用信箱</span>
+        <input
+          placeholder="輸入信箱"
+          type="text"
+          value="test@test.com"
+          name="email"
+        />
+        <span>密碼</span>
+        <input
+          type="password"
+          name="password"
+          value="test"
+          placeholder="輸入密碼"
+        />
+        <p class="error__text"></p>
+        <input
+          type="submit"
+          value="註冊 / 登入"
+          class="login__btn mt-4"
+          id="signinBtn"
+        />
+      </form>
+    </div>
+  </div>   
+</main>
+{% endblock %}
+{% block link %}
+<script type="module" src="../static/js/login.js"></script>
+<script type="module">
+  import { handleCredentialResponse } from '../static/js/login.js';
+  window.handleCredentialResponse = handleCredentialResponse;
+</script>
+{% endblock %}  

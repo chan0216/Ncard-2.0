@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %}
+<link rel="stylesheet" href="../static/css/style.css" />
+<title>Ncard</title>
+{% endblock %}
+{% block main %}
+<main>
+  
+    <div class="index">
+      <div class="member__indexcard flex-column mt-4">
+        <!-- <div class="ncard__mood label">
+          <i class="bi bi-clipboard-heart-fill me-2"></i>
+          <a href="">心情</a>
+        </div>
+        <div class="ncard__love label">
+          <i class="bi bi-search-heart me-2"></i>
+          <a href="">感情</a>
+        </div>    
+        <div class="ncard__chat label">
+          <i class="bi bi-people-fill me-2"></i>
+          <a href="">閒聊</a>
+        </div>      -->
+        <!-- <div class="visitor__tag">
+          <p>
+            立即加入Ncard
+            <br />
+            啟用完整功能
+          </p>
+          <a class="index__login" href="/login">登入/註冊</a>
+        </div> -->
+        <!-- <div class="member__tag">
+          <div class="ncardintro mt-3">
+            <i class="bi bi-wallet2 me-2"></i
+            ><a href="/my/profile">抽卡自我介紹</a>
+          </div>
+          <div class="ncardfriend mt-3">
+            <i class="bi bi-people-fill me-2"></i>
+            <a href="/my/friends">我的卡友</a>
+          </div>
+        </div> -->
+      </div>
+      <div class="index__card rounded-3 mt-3">
+        <div class="card__menu d-flex justify-content-center">
+          <div class="menu__title d-flex align-items-center">
+            <a class="title"  id="newTitle"
+              >最新</a
+            >
+            <!-- onclick="location.href='/'" -->
+            <a class="title" id="hotTitle">熱門</a>
+          </div>
+        </div>
+        <div></div>
+        <div class="index__articles"></div>
+        <i class="bi bi-arrow-clockwise"></i>
+      </div>
+      <div class="intro">
+        <div
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="7000">
+              <img
+                src="../static/image/ncard.jpg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div class="carousel-item" data-bs-interval="7000">
+              <img
+                src="../static/image/ncard-2.jpg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div class="carousel-item" data-bs-interval="7000">
+              <img
+                src="../static/image/ncard-3.jpg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div class="carousel-item" data-bs-interval="7000">
+              <img
+                src="../static/image/ncard-4.jpg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div class="carousel-item" data-bs-interval="7000">
+              <img
+                src="../static/image/ncard-5.jpg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev"
+          >
+            <span
+              class="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next"
+          >
+            <span
+              class="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  {% endblock %}
+{% block link %}
+<script type="module" src="../static/js/home.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+{% endblock %}

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+    ncard:
+        platform: "linux/amd64"
+        image: chan0216/ncard:v2.0.0
+        restart: unless-stopped
+        build:
+            context: "."
+        container_name: "ncard"
+        env_file:
+            - .env
+        environment:
+            - TZ=Asia/Taipei
+        ports:
+            - 3000:8000

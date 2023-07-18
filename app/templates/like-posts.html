@@ -1,0 +1,24 @@
+{% extends "member.html" %}
+{% block title %}
+<link rel="stylesheet" href="../static/css/like_post.css" />
+{% endblock %} 
+{% block section %}
+<div class="likepost">
+    <p>我喜歡的文章</p>
+    <hr>
+</div>
+<div class="posts">
+    <div class="no-liked-posts">
+        <p class="no-liked-title">沒有喜歡的文章</p>
+        <p class="no-liked-text">對喜歡的文章按愛心，即可看到更多相關文章！</p>
+        <div class="no-liked-redirect-link">
+            <a href="/">去看文章</a>
+        </div>
+    </div>
+</div>
+<i class="bi bi-arrow-repeat"></i>
+{% endblock %}
+{% block link %}
+<script type="module" src="../static/js/member.js"></script>
+<script type="module" src="../static/js/like_post.js"></script>
+{% endblock %}

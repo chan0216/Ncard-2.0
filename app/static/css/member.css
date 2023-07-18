@@ -1,0 +1,118 @@
+@import "style.css";
+
+.member{
+  position: relative;
+}
+.member__card {
+  width: 208px;
+  position: fixed;
+  /* top: 0;
+  left: 0; */
+  color: white;
+  z-index: 100;
+  margin-right: 1000px;
+}
+.member__post {
+  width: 760px;
+  min-height: 660px;
+  background-color: #F2F3F4;
+  border-radius: 10px;
+  height: fit-content;
+  margin-left: 70px;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+.button {
+  outline: none;
+  border: none;
+  background-color: #3397cf;
+  color: white;
+  padding: 11px 16px;
+  border-radius: 10px;
+}
+.ncardintro,.ncardfriend,.ncardlike {
+  color: rgb(255, 255, 255);
+  /* background-color: rgba(255, 255, 255, 0.3) !important; */
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  text-align: left;
+  width: 180px;
+  /* border-radius:8px; */
+}
+.ncardintro:hover, .ncardfriend:hover, .ncardlike:hover {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  border-radius:8px;
+  cursor: pointer;
+}
+a {
+  color: white;
+}
+a:hover {
+  color: white;
+}
+
+#person{
+  font-size: 40px;
+}
+
+.validation{
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  min-height: 160px;
+  justify-content: center;
+  
+}
+.show_profile{
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  min-height: 180px;
+  justify-content: center;
+}
+
+p{
+  margin-bottom: 10px;
+}
+.showname, .showschool{
+  padding: 5px 20px;
+}
+
+.val-btn {
+  cursor: pointer;
+  background-color: #3397CF;
+  width: 120px;
+  margin: auto;
+  text-align: center;
+  padding: 5px 0;
+  border-radius:8px;
+  opacity: 0.9; 
+}
+
+.val-btn:hover {
+  opacity: 1; 
+}
+.active{
+  background-color: rgba(52, 52, 52, 0.942);
+  border-radius:8px;
+}
+.showname{
+  font-weight: bold;
+}
+
+.check-btn {
+  cursor: pointer;
+  background-color: #3397CF;
+  width: 100px;
+  text-align: center;
+  padding: 5px 0;
+  border-radius:8px;
+  font-size: 8px;
+  color: #C1CCD3;
+  margin-top: 10px;
+}
