@@ -14,10 +14,13 @@ def get_posts():
     try:
         page = request.args.get('page')
         type = request.args.get('type')
+        board_name = request.args.get('board')
+        board_id = post_service.get_board_id(board_name)
+
         if type == 'new':
-            posts_list, next_page = post_service.get_new_posts(page)
+            posts_list, next_page = post_service.get_new_posts(page, board_id)
         if type == 'hot':
-            posts_list, next_page = post_service.get_hot_posts(page)
+            posts_list, next_page = post_service.get_hot_posts(page, board_id)
         return {"data": posts_list, "nextPage": next_page}
     except Exception as error:
         return {'error': str(error)}, 500

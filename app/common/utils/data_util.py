@@ -9,7 +9,7 @@ def selected_columns_to_dict(row):
     return row._asdict()
 
 
-def get_paginated_data(page, query_function, user_id=None):
+def get_paginated_data(page, query_function, user_id=None, board_id=None):
     try:
         page = int(page)
     except:
@@ -19,9 +19,9 @@ def get_paginated_data(page, query_function, user_id=None):
     render_index = page * render_num
 
     if user_id is not None:
-        posts = query_function(user_id, render_index, render_num + 1)
+        posts = query_function(user_id, render_index, render_num + 1, board_id)
     else:
-        posts = query_function(render_index, render_num + 1)
+        posts = query_function(render_index, render_num + 1, board_id)
 
     if len(posts) > render_num:
         next_page = page + 1

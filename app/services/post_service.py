@@ -1,6 +1,6 @@
 from models.post import Post
 from models.comment import Comment
-from models.user import User
+from models.post_board import PostBoard
 from common.utils.error_util import NoPostFoundError
 from models.user_post_like import UserPostLike
 from common.utils.data_util import selected_columns_to_dict, get_paginated_data
@@ -12,11 +12,15 @@ import base64
 
 class PostService:
 
-    def get_hot_posts(self, page):
-        return get_paginated_data(page, Post.query_hot_posts)
+    def get_hot_posts(self, page, board_id=None):
+        return get_paginated_data(page,
+                                  Post.query_hot_posts,
+                                  board_id=board_id)
 
-    def get_new_posts(self, page):
-        return get_paginated_data(page, Post.query_new_posts)
+    def get_new_posts(self, page, board_id=None):
+        return get_paginated_data(page,
+                                  Post.query_new_posts,
+                                  board_id=board_id)
 
     def get_post(self, post_id, user_id):
         post_like = None
@@ -31,6 +35,13 @@ class PostService:
             is_liked = False
         post_dict['is_liked'] = is_liked
         return post_dict
+
+    def get_board_id(self, board_name):
+        board = PostBoard.query_board_id(board_name)
+        if board:
+            return board.id
+        else:
+            return None
 
     def patch_post_like(self, user_id, post_id):
         post_like = UserPostLike.query_like_status(user_id, post_id)

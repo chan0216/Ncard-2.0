@@ -1,27 +1,18 @@
 import { checkUserStatus } from "./user.js";
 import { renderPage } from "./utils.js";
-let apiUrl;
-let page = 0;
 let url = window.location.href;
 let parts = url.split("/");
 let board = parts[parts.length - 1];
+let page = 0;
 let newTitle = document.querySelector("#newTitle");
 let hotTitle = document.querySelector("#hotTitle");
 let LoadIcon = document.querySelector(".bi-arrow-clockwise");
 let indexArticles = document.querySelector(".index__articles");
 
-const checkApiUrl = (type) => {
-  if (board) {
-    apiUrl = `/api/posts?page=${page}&type=${type}&board=${board}`;
-  } else {
-    apiUrl = `/api/posts?page=${page}&type=${type}`;
-  }
-  return apiUrl;
-};
-
 const getPosts = async (type) => {
-  apiUrl = checkApiUrl(type);
-  const result = await fetch(apiUrl);
+  const result = await fetch(
+    `/api/posts?page=${page}&type=${type}&board=${board}`
+  );
   const data = await result.json();
   const res = data.data;
   if (type === "new") {
@@ -34,7 +25,7 @@ const getPosts = async (type) => {
   page = data["nextPage"];
   if (page == null) {
     observer.unobserve(LoadIcon);
-    LoadIcon.style.display = "none";
+    LoadIcon.style.display = "None";
   } else {
     LoadIcon.style.display = "flex";
   }
@@ -74,7 +65,7 @@ newTitle.addEventListener("click", () => switchCategory("new"));
 
 async function run() {
   await checkUserStatus();
-  await getPosts(currentFunction);
+  getPosts("new");
 }
 
 run();

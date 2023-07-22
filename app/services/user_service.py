@@ -72,7 +72,7 @@ class UserService:
         for friend in friends:
             if friend.user1_id == int(user_id):
                 friend_id = friend.user2_id
-            else:
+            if friend.user2_id == int(user_id):
                 friend_id = friend.user1_id
             friend_info = User.query_user_profile(user_id=friend_id)
             friends_info.append({
@@ -218,4 +218,8 @@ class UserService:
         return data
 
     def get_liked_posts(self, user_id, page):
-        return get_paginated_data(page, UserPostLike.query_like_posts, user_id)
+        return get_paginated_data(
+            page,
+            UserPostLike.query_like_posts,
+            user_id,
+        )

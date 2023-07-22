@@ -16,7 +16,7 @@ class UserPostLike(db.Model):
         return cls.query.filter_by(user_id=user_id, post_id=post_id).first()
 
     @classmethod
-    def query_like_posts(cls, user_id, render_index, render_num):
+    def query_like_posts(cls, user_id, render_index, render_num, board_id):
         try:
             like_posts = cls.query.join(Post, Post.id == cls.post_id).\
                 join(User,User.user_id == Post.user_id).\

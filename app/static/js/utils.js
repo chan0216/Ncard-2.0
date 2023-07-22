@@ -28,13 +28,6 @@ export function renderPage(res, indexArticles) {
     let textDiv = document.createElement("div");
     textDiv.classList.add("text_div");
     const plainTextContent = getPlainText(obj["content"]);
-    // .replace(/<br>/g, "\n")
-    // .replace(/<img[^>]*>/g, "")
-    // .replace(/<div[^>]*>/g, "")
-    // .replace(/\&nbsp;/g, "")
-    // .replace(/<p>/g, "")
-    // .replace(/<\/p>/g, ",")
-    // .replace(/<\/?span.*?>/g, "");
     textDiv.textContent = plainTextContent;
     //呈現讚數及留言數
     let likeIcon = document.createElement("i");

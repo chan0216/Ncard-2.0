@@ -1,5 +1,6 @@
 from common.configs.db_config import db
 from models.user import User
+from models.post_board import PostBoard
 from datetime import datetime
 from sqlalchemy import desc, func
 
@@ -9,6 +10,7 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, nullable=False)
+    board_id = db.Column(db.Integer)
     title = db.Column(db.String(255))
     content = db.Column(db.Text)
     time = db.Column(db.TIMESTAMP, default=datetime.now)
@@ -21,21 +23,29 @@ class Post(db.Model):
         return cls.query.filter_by(id=post_id).first()
 
     @classmethod
-    def query_hot_posts(cls, render_index, render_num):
+    def query_hot_posts(cls, render_index, render_num, board_id=None):
         try:
-            hot_posts = cls.query.join(User, User.user_id == cls.user_id).\
-            with_entities(cls.id, cls.user_id, cls.title, cls.content, cls.time, cls.first_img, cls.like_count, cls.comment_count,User.gender,User.school).\
-            order_by(desc(cls.like_count)).offset(render_index).limit(render_num).\
+            conditions = []
+            if board_id:
+                conditions.append(cls.board_id == board_id)
+            hot_posts = cls.query.filter(*conditions).join(User, User.user_id == cls.user_id).\
+            join(PostBoard, PostBoard.id == cls.board_id).\
+            with_entities(cls.id, cls.user_id, cls.title, cls.content, cls.time, cls.first_img, cls.like_count, cls.comment_count,User.gender,User.school,PostBoard.name.label('board_name')).\
+            order_by(desc(cls.like_count), cls.id).offset(render_index).limit(render_num).\
             all()
             return hot_posts
         except Exception as e:
             raise (e)
 
     @classmethod
-    def query_new_posts(cls, render_index, render_num):
+    def query_new_posts(cls, render_index, render_num, board_id=None):
         try:
-            new_posts = cls.query.join(User, User.user_id == cls.user_id).\
-            with_entities(cls.id, cls.user_id, cls.title, cls.content, cls.time, cls.first_img, cls.like_count, cls.comment_count,User.gender,User.school).\
+            conditions = []
+            if board_id:
+                conditions.append(cls.board_id == board_id)
+            new_posts = cls.query.filter(*conditions).join(User, User.user_id == cls.user_id).\
+            join(PostBoard, PostBoard.id == cls.board_id).\
+            with_entities(cls.id, cls.user_id, cls.title, cls.content, cls.time, cls.first_img, cls.like_count, cls.comment_count,User.gender,User.school,PostBoard.name.label('board_name')).\
             order_by(desc(cls.id)).offset(render_index).limit(render_num).\
             all()
             return new_posts

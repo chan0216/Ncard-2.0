@@ -1,6 +1,6 @@
 import { checkUserStatus } from "./user.js";
 let mainElement = document.querySelector("main");
-let LoadIcon = document.querySelector(".bi-arrow-repeat");
+let LoadIcon = document.querySelector(".bi-arrow-clockwise");
 let page = 0;
 
 document.querySelector(".ncardfriend").classList.add("active");
@@ -12,7 +12,9 @@ async function fetchFriendsData() {
   page = data["next_page"];
   if (page == null) {
     observer.unobserve(LoadIcon);
-    LoadIcon.style.display = "None";
+    LoadIcon.style.display = "none";
+  } else {
+    LoadIcon.style.display = "flex";
   }
   if (data.data && data.data.length > 0) {
     let infoArr = data.data;
@@ -41,7 +43,7 @@ async function fetchFriendsData() {
       friendList.append(friendDiv);
     }
   } else {
-    document.querySelector(".nofriend ").style.display = "flex";
+    document.querySelector(".nofriend").style.display = "flex";
     LoadIcon.style.display = "none";
   }
 }
@@ -49,12 +51,13 @@ async function fetchFriendsData() {
 let options = { threshold: 0.5 };
 let renderNextPages = (entries) => {
   entries.forEach((entry) => {
-    if (entry.isIntersecting) {
+    if (entry.isIntersecting && page > 0) {
       fetchFriendsData();
     }
   });
 };
 let observer = new IntersectionObserver(renderNextPages, options);
+observer.observe(LoadIcon);
 
 async function run() {
   let loginStatus = await checkUserStatus();
@@ -62,7 +65,7 @@ async function run() {
     mainElement.style.display = "block";
     window.location.href = "/login";
   }
-  observer.observe(LoadIcon);
+  await fetchFriendsData();
 }
 
 run();

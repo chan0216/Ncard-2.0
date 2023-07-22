@@ -193,15 +193,18 @@ a {
   border-radius: 50px;
   border: 4px solid #00000000;
 }
-/* .label{
-  width: 100px;
-  margin:10px 10px;
-  color: white;
-} */
-/* .label:hover {
-  background-color: rgb(33, 33, 77);
-} */
+.bi-arrow-clockwise {
+  display: none;
+}
 
 .bi-calendar-heart{
   width: 50px;
+}
+.ncard__mood, .ncard__love, .ncard__chat{
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    text-align: left;
+    width: 180px;
 }

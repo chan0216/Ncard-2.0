@@ -9,6 +9,10 @@ def init_routes(app):
     def index():
         return render_template('home.html')
 
+    @app.route('/b/<board>')
+    def board_post(board):
+        return render_template('board-post.html')
+
     @app.route("/login")
     def login():
         return render_template("login.html")

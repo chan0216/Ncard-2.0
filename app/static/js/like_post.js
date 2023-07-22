@@ -1,6 +1,6 @@
 import { checkUserStatus } from "./user.js";
 import { renderPage } from "./utils.js";
-let load = document.querySelector(".bi-arrow-repeat");
+let load = document.querySelector(".bi-arrow-clockwise");
 let posts = document.querySelector(".posts");
 let NoLikeElement = document.querySelector(".no-liked-posts");
 let mainElement = document.querySelector("main");
@@ -18,21 +18,25 @@ const getLikePost = async () => {
     return;
   }
   page = data["nextPage"];
+  console.log(page);
   if (page == null) {
     observer.unobserve(load);
-    load.style.display = "None";
+    load.style.display = "none";
+  } else {
+    load.style.display = "flex";
   }
   renderPage(res, posts);
 };
 let options = { threshold: 0.5 };
 let renderNextPages = (entries) => {
   entries.forEach((entry) => {
-    if (entry.isIntersecting) {
+    if (entry.isIntersecting && page > 0) {
       getLikePost();
     }
   });
 };
 let observer = new IntersectionObserver(renderNextPages, options);
+observer.observe(load);
 
 async function run() {
   let loginStatus = await checkUserStatus();
@@ -41,7 +45,7 @@ async function run() {
     return;
   } else {
     mainElement.style.display = "block";
-    observer.observe(load);
+    getLikePost();
   }
 }
 
