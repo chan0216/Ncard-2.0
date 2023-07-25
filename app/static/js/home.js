@@ -7,7 +7,7 @@ let parts = url.split("/");
 let board = parts[parts.length - 1];
 let newTitle = document.querySelector("#newTitle");
 let hotTitle = document.querySelector("#hotTitle");
-let LoadIcon = document.querySelector(".bi-arrow-clockwise");
+let LoadIcon = document.querySelector(".loading");
 let indexArticles = document.querySelector(".index__articles");
 
 const checkApiUrl = (type) => {
@@ -49,6 +49,7 @@ const renderNextPages = (entries) => {
   };
 
   entries.forEach((entry) => {
+    console.log(page);
     if (entry.isIntersecting && page > 0) {
       funcMap[currentFunction](currentFunction);
     }

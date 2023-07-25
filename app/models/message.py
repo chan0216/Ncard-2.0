@@ -13,7 +13,7 @@ class Message(db.Model):
     sent_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     @classmethod
-    def query_last_messages(cls, friend_id_list):
+    def query_last_messages(cls, friend_id_list, render_index, render_num):
         subquery = cls.query.with_entities(cls.friend_id, func.max(cls.id).label('max_id'))\
             .filter(cls.friend_id.in_(friend_id_list))\
             .group_by(cls.friend_id)\
@@ -22,7 +22,7 @@ class Message(db.Model):
         messages = cls.query\
             .join(subquery, and_(cls.friend_id == subquery.c.friend_id, cls.id == subquery.c.max_id))\
             .with_entities(cls.friend_id, cls.message, cls.sent_time)\
-            .order_by(desc(cls.sent_time))\
+            .order_by(desc(cls.sent_time),desc(cls.id)).offset(render_index).limit(render_num)\
             .all()
 
         return messages

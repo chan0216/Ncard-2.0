@@ -1,4 +1,6 @@
 import { checkUserStatus } from "./user.js";
+let page = 0;
+let LoadIcon = document.querySelector(".loader");
 const fullContent = document.querySelector(".full__content");
 const socket = io();
 
@@ -34,12 +36,31 @@ async function joinRoom() {
   }
 }
 
+let options = { threshold: 0.5 };
+let renderNextPages = (entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting && page > 0) {
+      fetchMsg();
+    }
+  });
+};
+let observer = new IntersectionObserver(renderNextPages, options);
+observer.observe(LoadIcon);
+
 //顯示聊天列表
 async function fetchMsg() {
-  const response = await fetch("/api/users/me/chatrooms");
+  const response = await fetch(`/api/users/me/chatrooms?page=${page}`);
   const data = await response.json();
   let res = data.data;
   let messages_list = res.messages_list;
+  page = res["next_page"];
+  console.log(page);
+  if (page == null) {
+    observer.unobserve(LoadIcon);
+    LoadIcon.style.display = "none";
+  } else {
+    LoadIcon.style.display = "flex";
+  }
   messages_list.forEach((friend) => {
     renderFriends(friend);
   });
@@ -69,12 +90,13 @@ function renderFriends(friend) {
   friendFrame.classList.add("friend__frame");
   friendFrame.append(imgDiv, msgDiv);
   friendList.append(friendFrame);
+  friendList.append(LoadIcon);
   const chatsHref = `/chats/${friend.friend_id}`;
   friendFrame.href = chatsHref;
 }
 
 let messagesDiv = document.querySelector(".messages__div");
-// ...
+
 function checkScroll() {
   if (messagesDiv.scrollTop === 0) {
     chatsPage += 1;
@@ -251,8 +273,8 @@ function updatefriend(data) {
 
 async function run() {
   await checkUserStatus();
-  fetchMsg();
-  renderMessages();
+  await fetchMsg();
+  await renderMessages();
 }
 
 run();

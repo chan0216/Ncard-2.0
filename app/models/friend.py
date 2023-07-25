@@ -1,6 +1,7 @@
 from common.configs.db_config import db
 from sqlalchemy import or_
 from datetime import datetime
+from sqlalchemy import desc, func
 
 
 class Friend(db.Model):
@@ -17,6 +18,16 @@ class Friend(db.Model):
         conditions.append(or_(cls.user1_id == user_id,
                               cls.user2_id == user_id))
         friends = cls.query.filter(*conditions).all()
+        return friends
+
+    @classmethod
+    def query_friends(cls, user_id, render_index, render_num):
+        conditions = []
+        conditions.append(or_(cls.user1_id == user_id,
+                              cls.user2_id == user_id))
+        friends = cls.query.filter(*conditions).\
+            order_by(desc(cls.id)).offset(render_index).limit(render_num).\
+            all()
         return friends
 
     @classmethod

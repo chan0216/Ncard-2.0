@@ -208,3 +208,22 @@ a {
     text-align: left;
     width: 180px;
 }
+.loading {
+  width: 50px;
+  height: 50px;
+  margin: 20px auto 0;
+  border-top: 5px solid #292929;
+  border-right: 5px solid #efefef;
+  border-bottom: 5px solid #efefef;
+  border-left: 5px solid #efefef;
+  border-radius: 100px;
+  animation: spin 1s infinite linear;
+  display: none;
+}
+
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

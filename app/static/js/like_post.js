@@ -1,6 +1,6 @@
 import { checkUserStatus } from "./user.js";
 import { renderPage } from "./utils.js";
-let load = document.querySelector(".bi-arrow-clockwise");
+let load = document.querySelector(".loading");
 let posts = document.querySelector(".posts");
 let NoLikeElement = document.querySelector(".no-liked-posts");
 let mainElement = document.querySelector("main");
@@ -13,12 +13,11 @@ const getLikePost = async () => {
   const data = await result.json();
   const res = data.data;
   if (res.length == 0) {
-    load.style.display = "None";
+    load.style.display = "none";
     NoLikeElement.style.display = "flex";
     return;
   }
-  page = data["nextPage"];
-  console.log(page);
+  page = data["next_page"];
   if (page == null) {
     observer.unobserve(load);
     load.style.display = "none";
@@ -30,6 +29,7 @@ const getLikePost = async () => {
 let options = { threshold: 0.5 };
 let renderNextPages = (entries) => {
   entries.forEach((entry) => {
+    console.log(page);
     if (entry.isIntersecting && page > 0) {
       getLikePost();
     }

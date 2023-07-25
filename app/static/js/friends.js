@@ -1,6 +1,6 @@
 import { checkUserStatus } from "./user.js";
 let mainElement = document.querySelector("main");
-let LoadIcon = document.querySelector(".bi-arrow-clockwise");
+let LoadIcon = document.querySelector(".loading");
 let page = 0;
 
 document.querySelector(".ncardfriend").classList.add("active");
@@ -8,7 +8,6 @@ document.querySelector(".ncardfriend").classList.add("active");
 async function fetchFriendsData() {
   const response = await fetch(`/api/users/me/friends?page=${page}`);
   const data = await response.json();
-
   page = data["next_page"];
   if (page == null) {
     observer.unobserve(LoadIcon);

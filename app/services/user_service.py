@@ -65,28 +65,28 @@ class UserService:
             page = int(page)
         except:
             return None, None
-        friends = Friend.get_friends(user_id)
+
+        render_num = 9
+        render_index = page * render_num
+        friends = Friend.query_friends(user_id, render_index, render_num + 1)
         if not friends:
             raise NoFriendsFoundError('找不到好友')
-        friends_info = []
+        friends_list = []
         for friend in friends:
             if friend.user1_id == int(user_id):
                 friend_id = friend.user2_id
             if friend.user2_id == int(user_id):
                 friend_id = friend.user1_id
             friend_info = User.query_user_profile(user_id=friend_id)
-            friends_info.append({
+            friends_list.append({
                 'user_id': friend_info.user_id,
                 'name': friend_info.name,
                 'school': friend_info.school,
                 'image': friend_info.image,
             })
-        render_num = 10
-        render_index = page * render_num
-        friends_list = friends_info[render_index:render_index + render_num + 1]
         if len(friends_list) > render_num:
             next_page = page + 1
-            school_name_list = school_name_list[:render_num]
+            friends_list = friends_list[:render_num]
         else:
             next_page = None
         return friends_list, next_page
@@ -154,12 +154,26 @@ class UserService:
         user_dict['roomId'] = room_id
         return user_dict
 
-    def get_user_chatrooms(self, user_id):
+    def get_user_chatrooms(self, user_id, page):
+        try:
+            page = int(page)
+        except:
+            return None, None
+
+        render_num = 8
+        render_index = page * render_num
+
         messages_list = []
         friends = Friend.get_friends(user_id)
         friends_id_list = [friend.id for friend in friends]
-        messages = Message.query_last_messages(friends_id_list)
+        messages = Message.query_last_messages(friends_id_list, render_index,
+                                               render_num + 1)
         if messages:
+            if len(messages) > render_num:
+                next_page = page + 1
+                messages = messages[:render_num]
+            else:
+                next_page = None
             for message in messages:
                 friend_record = Friend.query_friend_by_id(message.friend_id)
                 if friend_record.user1_id == int(user_id):
@@ -173,7 +187,8 @@ class UserService:
                 messages_list.append(message_dict)
             return {
                 'friends_id_list': friends_id_list,
-                'messages_list': messages_list
+                'messages_list': messages_list,
+                'next_page': next_page
             }
         else:
             return None

@@ -81,7 +81,8 @@ def get_user_info(user_id, path_user_id):
 @check_token
 def get_user_chatrooms(user_id):
     try:
-        chatrooms_list = user_service.get_user_chatrooms(user_id)
+        page = request.args.get('page')
+        chatrooms_list = user_service.get_user_chatrooms(user_id, page)
         return {'data': chatrooms_list}
     except Exception as e:
         return {'error': True, 'message': str(e)}, 500
@@ -104,6 +105,6 @@ def get_liked_posts(user_id):
     try:
         page = request.args.get('page')
         posts_list, next_page = user_service.get_liked_posts(user_id, page)
-        return {"data": posts_list, "nextPage": next_page}
+        return {"data": posts_list, "next_page": next_page}
     except Exception as error:
         return {'error': str(error)}, 500

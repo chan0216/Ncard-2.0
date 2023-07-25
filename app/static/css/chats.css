@@ -8,7 +8,8 @@ body {
   padding: 28px 20px 0px;
 }
 .chat__friend {
-  width: 314px;
+  height: 100%;
+  /* width: 314px; */
   display: flex;
   flex-direction: column;
   color: white;
@@ -47,9 +48,9 @@ body {
 .mail__title {
   display: flex;
   align-items: center;
-  height: 40px;
   padding-left: 10px;
   font-weight: bold;
+  margin-bottom: 15px;
 }
 .friend__name {
   font-size: 16px;
@@ -199,4 +200,38 @@ textarea {
 .write__friend {
   color: rgb(143, 143, 143);
   margin-bottom: 0;
+}
+.friend__list{
+  /* height: calc(100vh - 170px); */
+  max-height: calc(100vh - 170px);
+  overflow-y: auto;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: darkgray; 
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+.loader {
+  width: 30px;
+  height: 30px;
+  margin: 20px auto 0;
+  border-top: 5px solid #292929;
+  border-right: 5px solid #efefef;
+  border-bottom: 5px solid #efefef;
+  border-left: 5px solid #efefef;
+  border-radius: 100px;
+  animation: spin 1s infinite linear;
+}
+
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }

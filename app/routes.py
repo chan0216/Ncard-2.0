@@ -39,7 +39,7 @@ def init_routes(app):
 
     @app.route('/my/friends')
     def friends():
-        return render_template("friends.html")
+        return render_template("friend.html")
 
     @app.route('/ncard')
     def ncard():
