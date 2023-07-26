@@ -11,10 +11,11 @@
       <div class="newpost__profile d-flex align-items-center">
         <i class="bi bi-person-circle man" style="font-size: 2rem"></i>
         <i class="bi bi-person-circle women" style="font-size: 2rem"></i>
-
         <div class="newpost__data"></div>
       </div>
-      <p class="Prompt"></p>
+      <select id="boardSelect" >
+        <option id="selectedBoard"  value="" disabled selected hidden>選擇看板</option>
+      </select>
       <textarea
         name="title"
         class="newpost__title"
@@ -45,6 +46,13 @@
           <button class="submit">送出</button>
         </div>
       </div>
+    </div>
+    <div class="showboard">
+      <div class="option" data-value="mood">心情</div>
+      <div class="option" data-value="relationship">感情</div>
+      <div class="option" data-value="chat">閒聊</div>
+      <div class="option" data-value="job">工作</div>
+      <div class="option" data-value="food">美食</div>
     </div>
   </div>
 </div>

@@ -56,7 +56,8 @@ class Post(db.Model):
     def query_post_with_user(cls, id):
         try:
             post = cls.query.join(User, User.user_id == cls.user_id).\
-                with_entities(cls.title, cls.content, func.date_format(cls.time, '%m-%d %H:%i').label('time'), cls.comment_count, cls.like_count, User.gender, User.school).\
+                join(PostBoard, PostBoard.id == cls.board_id).\
+                with_entities(cls.title, cls.content, func.date_format(cls.time, '%m-%d %H:%i').label('time'), cls.comment_count, cls.like_count, User.gender, User.school,PostBoard.name.label('board_name'),PostBoard.eng_name).\
                 filter(cls.id == id).\
                 first()
             return post

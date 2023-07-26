@@ -91,3 +91,33 @@ p {
   color: #ff6347;
   /* display: none; */
 }
+#boardSelect{
+  width: 100px;
+  padding: 8px 5px;
+  color: gray;
+  border: none;
+  margin: 10px 15px;
+  background-color: rgba(52, 52, 52, 0.1);
+  border-radius:8px;
+  cursor: pointer;
+
+}
+select:focus {
+  outline: none;
+}
+.showboard{
+  display: none;
+  width: 120px;
+  background-color: #EAEAEA;
+  z-index: 2;
+  height: auto;
+  position: relative;
+  transform: translate(15px, -195px);
+  border-radius:8px;
+}
+.option{
+  text-align: center;
+  padding: 7px 0;
+  color: rgb(86, 86, 86);
+  cursor: pointer;
+}

@@ -9,6 +9,16 @@ let newTitle = document.querySelector("#newTitle");
 let hotTitle = document.querySelector("#hotTitle");
 let LoadIcon = document.querySelector(".loading");
 let indexArticles = document.querySelector(".index__articles");
+let boardLinks = document.querySelectorAll(".board");
+
+boardLinks.forEach((link) => {
+  let href = link.getAttribute("href");
+  let board_name = href.split("/")[2];
+  if (board === board_name) {
+    let divInsideLink = link.querySelector("div");
+    divInsideLink.classList.add("active");
+  }
+});
 
 const checkApiUrl = (type) => {
   if (board) {

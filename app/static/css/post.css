@@ -60,6 +60,11 @@ p {
   font-size: 14px;
   margin: 10px 0 0;
 }
+.post__board{
+  color: #47A0D2;
+  font-size: 14px;
+  margin: 10px 0 0;
+}
 .post_title {
   font-weight: 500;
   font-size: 28px;

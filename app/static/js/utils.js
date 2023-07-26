@@ -10,13 +10,16 @@ export function renderPage(res, indexArticles) {
     let userschool = document.createElement("p");
     userschool.classList.add("userschool");
     userschool.textContent = obj["school"];
+    let postboard = document.createElement("p");
+    postboard.textContent = obj["board_name"] + " · ";
+    postboard.classList.add("postboard");
     let contentDiv = document.createElement("div");
     contentDiv.classList.add("content_div");
     let icon = document.createElement("i");
     icon.classList.add("bi-person-circle");
     let icondiv = document.createElement("div");
     icondiv.classList.add("icondiv");
-    icondiv.append(icon, userschool);
+    icondiv.append(icon, postboard, userschool);
     let articleDiv = document.createElement("div");
 
     //標題

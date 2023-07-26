@@ -1,7 +1,7 @@
 from models.post import Post
 from models.comment import Comment
 from models.post_board import PostBoard
-from common.utils.error_util import NoPostFoundError
+from common.utils.error_util import NoPostFoundError, AddPostError
 from models.user_post_like import UserPostLike
 from common.utils.data_util import selected_columns_to_dict, get_paginated_data
 from common.utils.db_util import add_value, delete_value, update_value
@@ -37,7 +37,7 @@ class PostService:
         return post_dict
 
     def get_board_id(self, board_name):
-        board = PostBoard.query_board_id(board_name)
+        board = PostBoard.query_board_data(board_name)
         if board:
             return board.id
         else:
@@ -56,35 +56,42 @@ class PostService:
         return post.like_count
 
     def add_post(self, user_id, data):
-        content = data['content']
-        images = data['images']
-        title = data['title']
-        s3_urls = []
+        try:
+            content = data['content']
+            images = data['images']
+            title = data['title']
+            board_name = data['board']
+            s3_urls = []
 
-        for i, image_data in enumerate(images):
-            image_data = image_data.split('base64,')[-1]
-            image_bytes = base64.b64decode(image_data)
-            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-            image_name = f"post_{user_id}_{timestamp}_{i}.jpg"
-            s3.put_object(Bucket='ncard-bucket',
-                          Key=image_name,
-                          Body=image_bytes)
+            for i, image_data in enumerate(images):
+                image_data = image_data.split('base64,')[-1]
+                image_bytes = base64.b64decode(image_data)
+                timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+                image_name = f"post_{user_id}_{timestamp}_{i}.jpg"
+                s3.put_object(Bucket='ncard-bucket',
+                              Key=image_name,
+                              Body=image_bytes)
 
-            url = f"https://d3cg2vur0g3vo5.cloudfront.net/{image_name}"
-            s3_urls.append(url)
+                url = f"https://d3cg2vur0g3vo5.cloudfront.net/{image_name}"
+                s3_urls.append(url)
 
-        # 在文章中替换占位符
-        replace_content = content
-        for i, url in enumerate(s3_urls):
-            replace_content = replace_content.replace(f'{{imgSrc{i}}}', url)
-        #判斷是否有第一張照片
-        first_img = s3_urls[0] if s3_urls else None
-        post = add_value(Post,
-                         user_id=user_id,
-                         content=replace_content,
-                         title=title,
-                         first_img=first_img)
-        return post
+            # 在文章中替换占位符
+            replace_content = content
+            for i, url in enumerate(s3_urls):
+                replace_content = replace_content.replace(
+                    f'{{imgSrc{i}}}', url)
+            #判斷是否有第一張照片
+            first_img = s3_urls[0] if s3_urls else None
+            board = PostBoard.query_board_data(board_name)
+            post = add_value(Post,
+                             user_id=user_id,
+                             board_id=board.id,
+                             content=replace_content,
+                             title=title,
+                             first_img=first_img)
+            return post
+        except Exception as e:
+            raise AddPostError('新增文章失敗，請稍後再試')
 
     def get_comments(self, post_id, page):
         page = int(page)

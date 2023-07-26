@@ -29,7 +29,6 @@ const getLikePost = async () => {
 let options = { threshold: 0.5 };
 let renderNextPages = (entries) => {
   entries.forEach((entry) => {
-    console.log(page);
     if (entry.isIntersecting && page > 0) {
       getLikePost();
     }

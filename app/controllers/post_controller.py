@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from services.post_service import PostService
 from common.utils.request_util import check_token
 from decouple import config
-from common.utils.error_util import NoPostFoundError
+from common.utils.error_util import NoPostFoundError, AddPostError
 import jwt
 
 post_controller = Blueprint("post_controller", __name__)
@@ -29,9 +29,12 @@ def get_posts():
 @post_controller.route("/posts", methods=["POST"])
 @check_token
 def add_post(user_id):
-    data = request.json
-    post = post_service.add_post(user_id, data)
-    return {'data': post.id}
+    try:
+        data = request.json
+        post = post_service.add_post(user_id, data)
+        return {'data': post.id}
+    except AddPostError as e:
+        return {'error': str(e)}, 500
 
 
 @post_controller.route("/posts/<id>", methods=["GET"])

@@ -16,3 +16,7 @@ class NoFriendsFoundError(Exception):
 
 class NoPostFoundError(Exception):
     pass
+
+
+class AddPostError(Exception):
+    pass

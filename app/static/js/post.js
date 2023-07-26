@@ -1,6 +1,6 @@
 import { checkUserStatus } from "./user.js";
 import { refreshAccessToken } from "./user.js";
-let LoadIcon = document.querySelector(".bi-arrow-repeat");
+let LoadIcon = document.querySelector(".loading");
 let url = new URL(window.location.href);
 let date = new Date();
 let comment = document.querySelector(".comment");
@@ -42,10 +42,18 @@ const getPost = async () => {
     let icon = document.createElement("i");
     icon.classList.add("bi-person-circle");
     document.querySelector(".originator").append(icon, schoolText);
+    //看板
+    const postBoard = document.createElement("a");
+    postBoard.href = `/b/${post.eng_name}`;
+    postBoard.innerHTML = post.board_name + " ·&nbsp;";
+    postBoard.classList.add("post__board");
     //時間
     const postTime = document.createElement("p");
     postTime.textContent = post.time;
     postTime.classList.add("post__time");
+    const boardTimeDiv = document.createElement("div");
+    boardTimeDiv.append(postBoard, postTime);
+    boardTimeDiv.style.display = "flex";
     //標題
     let titleDiv = document.createElement("div");
     titleDiv.textContent = post.title;
@@ -54,7 +62,7 @@ const getPost = async () => {
     let articleDiv = document.createElement("div");
     articleDiv.classList.add("post_content");
     articleDiv.innerHTML = post.content;
-    postCard.append(titleDiv, postTime, articleDiv);
+    postCard.append(titleDiv, boardTimeDiv, articleDiv);
     if (post["gender"] == "F") {
       icon.classList.add("women");
       document.querySelector(".women").style.display = "block";
@@ -107,6 +115,8 @@ const renderMoreComment = async () => {
   if (page == null) {
     observer.unobserve(LoadIcon);
     LoadIcon.style.display = "None";
+  } else {
+    LoadIcon.style.display = "flex";
   }
   //留言版標題
   if (!hasRenderedTitle) {
@@ -167,7 +177,7 @@ const renderMoreComment = async () => {
 let options = { threshold: 0.5 };
 let renderNextPages = (entries) => {
   entries.forEach((entry) => {
-    if (entry.isIntersecting) {
+    if (entry.isIntersecting && page > 0) {
       renderMoreComment();
     }
   });
@@ -463,6 +473,7 @@ document.querySelectorAll("img").forEach((img) => {
 async function run() {
   await checkUserStatus();
   await getPost();
+  await renderMoreComment();
   loadDraft();
 }
 

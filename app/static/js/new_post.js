@@ -3,10 +3,40 @@ let postContent = document.querySelector(".newpost__content");
 let postTitle = document.querySelector(".newpost__title");
 let mainElement = document.querySelector("main");
 let warning = document.querySelector(".warning");
+let boardSelect = document.querySelector("#boardSelect");
+let showBoard = document.querySelector(".showboard");
 let lastClick = null;
+let isBoardVisible = false;
+let selectedBoard = document.querySelector("#selectedBoard");
+let options = document.querySelectorAll(".option");
 
-postContent.addEventListener("click", function (e) {
-  lastClick = { x: e.clientX, y: e.clientY };
+boardSelect.addEventListener("click", function (e) {
+  if (isBoardVisible) {
+    showBoard.style.display = "none";
+  } else {
+    showBoard.style.display = "block";
+  }
+  isBoardVisible = !isBoardVisible;
+});
+
+document.addEventListener("click", function (event) {
+  if (event.target !== boardSelect && !showBoard.contains(event.target)) {
+    showBoard.style.display = "none";
+    isBoardVisible = false;
+  }
+});
+
+options.forEach((option) => {
+  option.addEventListener("click", function () {
+    let selectedValue = this.getAttribute("data-value");
+    let selectedText = this.textContent;
+    localStorage.setItem("selectedBoardValue", selectedValue);
+    localStorage.setItem("selectedBoardText", selectedText);
+    selectedBoard.textContent = selectedText;
+    selectedBoard.value = selectedValue;
+    showBoard.style.display = "none";
+    isBoardVisible = false;
+  });
 });
 
 //上傳照片
@@ -72,7 +102,11 @@ postContent.ondrop = function (event) {
 document.querySelector(".submit").addEventListener("click", addNewPost);
 async function addNewPost() {
   try {
-    if (postContent.innerHTML == "" || postTitle.value == "") {
+    if (
+      postContent.innerHTML == "" ||
+      postTitle.value == "" ||
+      selectedBoard.value == ""
+    ) {
       warning.textContent = "請輸入完整";
       return;
     }
@@ -90,6 +124,7 @@ async function addNewPost() {
       title: postTitle.value,
       content: cleanContent,
       images: imgData,
+      board: selectedBoard.value,
     };
     const config = {
       method: "POST",
@@ -109,12 +144,14 @@ async function addNewPost() {
         window.location.href = "/login";
       }
     }
-    if (res.error) {
-      throw new Error(res.error);
+    if (!res.ok) {
+      throw new Error();
     }
     if (post_id) {
       localStorage.removeItem("articleContentDraft");
       localStorage.removeItem("articleTitleDraft");
+      localStorage.removeItem("selectedBoardText");
+      localStorage.removeItem("selectedBoardValue");
       window.location.href = `/posts/${post_id}`;
     }
   } catch (error) {
@@ -182,8 +219,14 @@ function scrollToBottom(element) {
 
 //加載草稿
 function loadDraft() {
+  let selectedValue = localStorage.getItem("selectedBoardValue");
+  let selectedText = localStorage.getItem("selectedBoardText");
   let articleContentDraft = localStorage.getItem("articleContentDraft");
   let articleTitleDraft = localStorage.getItem("articleTitleDraft");
+  if (selectedValue && selectedText) {
+    selectedBoard.textContent = selectedText;
+    selectedBoard.value = selectedValue;
+  }
   if (articleContentDraft) {
     postContent.innerHTML = articleContentDraft;
   }

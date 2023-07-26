@@ -9,9 +9,8 @@ class PostBoard(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(45))
     eng_name = db.Column(db.String(45))
-    description = db.Column(db.String(255), nullable=False)
 
     @classmethod
-    def query_board_id(cls, board_name):
+    def query_board_data(cls, board_name):
         board = cls.query.filter(cls.eng_name == board_name).first()
         return board

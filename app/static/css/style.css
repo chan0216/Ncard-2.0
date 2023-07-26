@@ -21,6 +21,7 @@ html.touch *:hover {
   background-color: rgba(255, 255, 255, 0.99);
   padding: 15px 0;
   margin-top: 70px;
+  grid-column:2;
   margin: auto;
 }
 .card__menu {
@@ -81,10 +82,11 @@ html.touch *:hover {
   margin-bottom: 10px;
   margin-top: 15px;
 }
-.userschool {
+.userschool,.postboard {
   font-size: 14px;
   margin-left: 5px;
   margin-bottom: 0;
+  color: #868686;
 }
 
 .index {
@@ -94,21 +96,10 @@ html.touch *:hover {
   margin: auto;
 }
 .member__indexcard {
-  margin: 0 auto;
+  position: fixed;
+  margin-left: 40px;
 }
-/* .ncardintro,
-.ncardfriend {
-  color: rgb(255, 255, 255);
-  font-weight: 400;
-  height: 44px;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.3) !important;
-  line-height: 22px;
-  display: flex;
-  align-items: center;
-  padding: 0px 16px;
-  text-align: left;
-} */
+
 a {
   text-decoration: none;
   color: white;
@@ -138,9 +129,7 @@ a {
   justify-content: center;
   text-align: left;
 }
-/* a:hover {
-  color: inherit;
-} */
+
 .nav-link:hover {
   opacity: 0.6;
 }
@@ -179,6 +168,7 @@ a {
   width: 270px;
   margin-left: 10px;
   position: relative;
+  grid-column: 3;
 }
 
 .slide {
@@ -200,7 +190,7 @@ a {
 .bi-calendar-heart{
   width: 50px;
 }
-.ncard__mood, .ncard__love, .ncard__chat{
+.label{
     color: rgb(255, 255, 255);
     display: flex;
     align-items: center;
@@ -226,4 +216,15 @@ a {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.label.active{
+  
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius:8px;
+}
+.label:hover{
+  background-color: rgba(52, 52, 52, 0.95);
+  border-radius:8px;
+  cursor: pointer;
 }
