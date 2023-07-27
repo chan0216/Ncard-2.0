@@ -3,6 +3,7 @@ let page = 0;
 let LoadIcon = document.querySelector(".loader");
 const fullContent = document.querySelector(".full__content");
 const socket = io();
+let friendsIdList = null;
 
 document.querySelector(".send__message").addEventListener("click", showChatBox);
 function showChatBox() {
@@ -24,16 +25,9 @@ async function joinRoom() {
     window.location.href = "/login";
     return;
   }
-  const response = await fetch(`/api/users/me/chatrooms`);
-  const data = await response.json();
-  // if (data.error) {
-  //   window.location.replace("/");
-  // }
-  if (data.data) {
-    data.data.friends_id_list.forEach((roomId) => {
-      socket.emit("join_room", roomId.toString());
-    });
-  }
+  friendsIdList.forEach((roomId) => {
+    socket.emit("join_room", roomId.toString());
+  });
 }
 
 let options = { threshold: 0.5 };
@@ -52,9 +46,9 @@ async function fetchMsg() {
   const response = await fetch(`/api/users/me/chatrooms?page=${page}`);
   const data = await response.json();
   let res = data.data;
+  friendsIdList = res.friends_id_list;
   let messages_list = res.messages_list;
   page = res["next_page"];
-  console.log(page);
   if (page == null) {
     observer.unobserve(LoadIcon);
     LoadIcon.style.display = "none";
@@ -274,6 +268,7 @@ function updatefriend(data) {
 async function run() {
   await checkUserStatus();
   await fetchMsg();
+  await joinRoom();
   await renderMessages();
 }
 

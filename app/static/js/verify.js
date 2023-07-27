@@ -6,6 +6,7 @@ let dynamicContent = document.querySelector("#dynamicContent");
 let universitySelect = document.querySelector("#universitySelect");
 let genderPopup = document.querySelector(".gender_popup");
 let gender = document.querySelector("#gender");
+let selectedGender = document.querySelector("#selectedGender");
 let userFormSubmit = document.querySelector(".userform__submit");
 let userFormAlert = document.querySelector(".userform__alert");
 let isGenderPopupOpen = false;
@@ -64,17 +65,17 @@ function renderSchool(res) {
       this.style.backgroundColor = "";
     });
     schoolDiv.addEventListener("click", function () {
+      console.log(obj);
       let selectedUniversity = document.querySelector("#selectedUniversity");
-      selectedUniversity.text = obj;
-      selectedUniversity.value = obj;
+      selectedUniversity.textContent = obj;
+      selectedUniversity.dataset.value = obj;
       universitySelect.style.color = "black";
-      universitySelect.value = obj;
       closeUniversityPopup();
     });
   }
 }
 
-gender.addEventListener("click", toggleGenderPopup);
+selectedGender.addEventListener("click", toggleGenderPopup);
 
 function toggleGenderPopup(event) {
   event.stopPropagation();
@@ -108,28 +109,28 @@ document.addEventListener("click", function (event) {
   }
 });
 
-let newOptionMale = document.createElement("option");
+let newOptionMale = document.createElement("div");
 newOptionMale.style.paddingTop = "5px";
 newOptionMale.style.paddingBottom = "5px";
 newOptionMale.style.paddingLeft = "5px";
 newOptionMale.textContent = "男生";
-newOptionMale.value = "M";
+newOptionMale.dataset.value = "M";
 newOptionMale.addEventListener("click", function () {
   selectedGender.textContent = newOptionMale.textContent;
-  selectedGender.value = newOptionMale.value;
+  selectedGender.dataset.value = newOptionMale.dataset.value;
   gender.style.color = "black";
   closeGenderPopup();
 });
 
-let newOptionFemale = document.createElement("option");
+let newOptionFemale = document.createElement("div");
 newOptionFemale.style.paddingTop = "5px";
 newOptionFemale.style.paddingBottom = "5px";
 newOptionFemale.style.paddingLeft = "5px";
 newOptionFemale.textContent = "女生";
-newOptionFemale.value = "F";
+newOptionFemale.dataset.value = "F";
 newOptionFemale.addEventListener("click", function () {
   selectedGender.textContent = newOptionFemale.textContent;
-  selectedGender.value = newOptionFemale.value;
+  selectedGender.dataset.value = newOptionFemale.dataset.value;
   gender.style.color = "black";
   closeGenderPopup();
 });
@@ -163,8 +164,8 @@ const submitProfile = async () => {
     return;
   }
   let name = document.querySelector("#fullname").value;
-  let gender = selectedGender.value;
-  let school = selectedUniversity.value;
+  let gender = selectedGender.dataset.value;
+  let school = selectedUniversity.dataset.value;
   if (fullname === "" || school === "" || gender == "") {
     userFormAlert.textContent = "資料請輸入完整";
     return;

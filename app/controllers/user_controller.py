@@ -88,6 +88,16 @@ def get_user_chatrooms(user_id):
         return {'error': True, 'message': str(e)}, 500
 
 
+@user_controller.route("/users/me/chatrooms/last", methods=["GET"])
+@check_token
+def get_last_chatroom(user_id):
+    try:
+        chatroom_id = user_service.get_last_chatroom(user_id)
+        return {'data': chatroom_id}
+    except Exception as e:
+        return {'error': True, 'message': str(e)}, 500
+
+
 @user_controller.route('/users/me/chatrooms/<int:id>', methods=['GET'])
 @check_token
 def get_chats(user_id, id):

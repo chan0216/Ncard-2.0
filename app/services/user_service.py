@@ -158,7 +158,7 @@ class UserService:
         try:
             page = int(page)
         except:
-            return None, None
+            return None
 
         render_num = 8
         render_index = page * render_num
@@ -190,8 +190,6 @@ class UserService:
                 'messages_list': messages_list,
                 'next_page': next_page
             }
-        else:
-            return None
 
     def get_user_messages(self, room_id, user_id, page):
         try:
@@ -238,3 +236,11 @@ class UserService:
             UserPostLike.query_like_posts,
             user_id,
         )
+
+    def get_last_chatroom(self, user_id):
+        resp = Message.query_last_room(user_id)
+        if resp:
+            friend_id = resp.friend_id
+            return friend_id
+        else:
+            return None

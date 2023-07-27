@@ -46,6 +46,7 @@ nav {
 }
 .nav-user {
   /* visibility: hidden; */
+  display: none;
   margin-right: 30px;
 }
 .nav-stranger {

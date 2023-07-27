@@ -10,7 +10,8 @@ let isBoardVisible = false;
 let selectedBoard = document.querySelector("#selectedBoard");
 let options = document.querySelectorAll(".option");
 
-boardSelect.addEventListener("click", function (e) {
+selectedBoard.addEventListener("click", function (e) {
+  e.stopPropagation();
   if (isBoardVisible) {
     showBoard.style.display = "none";
   } else {
@@ -33,7 +34,7 @@ options.forEach((option) => {
     localStorage.setItem("selectedBoardValue", selectedValue);
     localStorage.setItem("selectedBoardText", selectedText);
     selectedBoard.textContent = selectedText;
-    selectedBoard.value = selectedValue;
+    selectedBoard.dataset.value = selectedValue;
     showBoard.style.display = "none";
     isBoardVisible = false;
   });
@@ -105,7 +106,7 @@ async function addNewPost() {
     if (
       postContent.innerHTML == "" ||
       postTitle.value == "" ||
-      selectedBoard.value == ""
+      selectedBoard.dataset.value == ""
     ) {
       warning.textContent = "請輸入完整";
       return;
@@ -124,7 +125,7 @@ async function addNewPost() {
       title: postTitle.value,
       content: cleanContent,
       images: imgData,
-      board: selectedBoard.value,
+      board: selectedBoard.dataset.value,
     };
     const config = {
       method: "POST",
@@ -134,6 +135,9 @@ async function addNewPost() {
       body: JSON.stringify(newPost),
     };
     const res = await fetch("/api/posts", config);
+    if (!res.ok) {
+      throw new Error();
+    }
     const data = await res.json();
     const post_id = data.data;
     if (res.status === 401) {
@@ -143,9 +147,6 @@ async function addNewPost() {
       } else {
         window.location.href = "/login";
       }
-    }
-    if (!res.ok) {
-      throw new Error();
     }
     if (post_id) {
       localStorage.removeItem("articleContentDraft");
@@ -225,7 +226,7 @@ function loadDraft() {
   let articleTitleDraft = localStorage.getItem("articleTitleDraft");
   if (selectedValue && selectedText) {
     selectedBoard.textContent = selectedText;
-    selectedBoard.value = selectedValue;
+    selectedBoard.dataset.value = selectedValue;
   }
   if (articleContentDraft) {
     postContent.innerHTML = articleContentDraft;

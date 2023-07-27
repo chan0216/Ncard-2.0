@@ -83,11 +83,11 @@ p{
   padding: 5px 20px;
 }
 
-.val-btn {
+.val-btn,.check-btn {
   cursor: pointer;
   background-color: #3397CF;
   width: 120px;
-  margin: auto;
+  margin: 20px;
   text-align: center;
   padding: 5px 0;
   border-radius:8px;
@@ -105,7 +105,7 @@ p{
   font-weight: bold;
 }
 
-.check-btn {
+/* .check-btn {
   cursor: pointer;
   background-color: #3397CF;
   width: 100px;
@@ -115,4 +115,5 @@ p{
   font-size: 8px;
   color: #C1CCD3;
   margin-top: 10px;
-}
+  display: none;
+} */

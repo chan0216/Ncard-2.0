@@ -5,6 +5,7 @@ body {
 main {
   overflow: auto;
   z-index: 1;
+  display: none;
 }
 .post__container {
   width: 728px;

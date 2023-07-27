@@ -11,9 +11,6 @@
   line-height: 30px;
   font-weight: bold;
 }
-.userform__card * {
-  width: 406px;
-}
 input {
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -23,7 +20,8 @@ input {
 .remind {
   font-size: 10px;
 }
-select {
+#selectedGender, #selectedUniversity, #fullname {
+  width: 406px;
   border-radius: 12px;
   padding: 10px 14px;
   border: 1px solid rgba(0, 0, 0, 0.15);

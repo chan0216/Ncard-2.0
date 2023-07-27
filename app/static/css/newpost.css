@@ -100,7 +100,7 @@ p {
   background-color: rgba(52, 52, 52, 0.1);
   border-radius:8px;
   cursor: pointer;
-
+text-align: center;
 }
 select:focus {
   outline: none;
@@ -111,13 +111,18 @@ select:focus {
   background-color: #EAEAEA;
   z-index: 2;
   height: auto;
-  position: relative;
-  transform: translate(15px, -195px);
+  position: fixed;
+  top: 150px;
+  margin-left: 15px;
   border-radius:8px;
 }
 .option{
   text-align: center;
   padding: 7px 0;
   color: rgb(86, 86, 86);
+}
+.option:hover{
+  background-color: rgba(86, 86, 86, 0.2);
   cursor: pointer;
+  border-radius:5px;
 }

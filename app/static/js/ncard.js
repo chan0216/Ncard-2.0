@@ -59,6 +59,7 @@ const getMatchProfile = async (user_id) => {
     let info = data.data;
     match_id = info.user_id;
     if (!info.invited) {
+      invite.innerText = "送出交友邀請";
       invite.style.backgroundColor = "#3397cf";
     } else if (info.is_friend) {
       invite.innerText = "已成為卡友";

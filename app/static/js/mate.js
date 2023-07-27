@@ -4,10 +4,6 @@ import { checkUserStatus } from "./user.js";
 async function fetchFriend() {
   const response = await fetch(`/api/users/${friend_id}`);
   const data = await response.json();
-  // if (data.error) {
-  //   window.location.replace("/");
-  //   return;
-  // }
   let ncard = document.querySelector(".ncard__card");
   ncard.style.display = "block";
   if (data.data) {

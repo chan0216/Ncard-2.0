@@ -16,7 +16,6 @@ async function deleteUser() {
 export async function checkUserStatus() {
   const response = await fetch("/api/auth/status");
   const data = await response.json();
-
   if (response.status === 401) {
     const success = await refreshAccessToken();
     if (success) {
@@ -28,7 +27,7 @@ export async function checkUserStatus() {
     }
   } else if (response.ok) {
     navStranger.style.display = "none";
-    navUser.style.visibility = "visible";
+    navUser.style.display = "flex";
     return data;
   } else {
     navStranger.style.display = "block";

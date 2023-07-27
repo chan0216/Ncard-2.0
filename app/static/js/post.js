@@ -19,6 +19,7 @@ let postCard = document.querySelector(".post__card");
 let commentContainer = document.querySelector(".comment__container");
 let likeBar = document.querySelector(".like__bar");
 let postComment = document.querySelector(".post__comment");
+let main = document.querySelector("main");
 
 //顯示文章
 const getPost = async () => {
@@ -472,6 +473,7 @@ document.querySelectorAll("img").forEach((img) => {
 
 async function run() {
   await checkUserStatus();
+  main.style.display = "block";
   await getPost();
   await renderMoreComment();
   loadDraft();
