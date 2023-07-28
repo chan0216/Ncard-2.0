@@ -64,6 +64,7 @@ async function run() {
     mainElement.style.display = "block";
     window.location.href = "/login";
   }
+  mainElement.style.display = "block";
   await fetchFriendsData();
 }
 

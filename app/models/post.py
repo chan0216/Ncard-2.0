@@ -31,7 +31,7 @@ class Post(db.Model):
             hot_posts = cls.query.filter(*conditions).join(User, User.user_id == cls.user_id).\
             join(PostBoard, PostBoard.id == cls.board_id).\
             with_entities(cls.id, cls.user_id, cls.title, cls.content, cls.time, cls.first_img, cls.like_count, cls.comment_count,User.gender,User.school,PostBoard.name.label('board_name')).\
-            order_by(desc(cls.like_count), cls.id).offset(render_index).limit(render_num).\
+            order_by(desc(cls.like_count), desc(cls.id)).offset(render_index).limit(render_num).\
             all()
             return hot_posts
         except Exception as e:

@@ -1,5 +1,5 @@
 from common.configs.db_config import db
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 from datetime import datetime
 from sqlalchemy import desc, func
 
@@ -33,11 +33,10 @@ class Friend(db.Model):
     @classmethod
     def query_friend(cls, user_id, match_id):
         conditions = []
-        conditions.append(
-            or_(cls.user1_id == user_id, cls.user2_id == match_id))
-        conditions.append(
-            or_(cls.user1_id == match_id, cls.user2_id == user_id))
-        friend = cls.query.filter(or_(*conditions)).first()
+        conditions = or_(
+            and_(cls.user1_id == user_id, cls.user2_id == match_id),
+            and_(cls.user1_id == match_id, cls.user2_id == user_id))
+        friend = cls.query.filter(conditions).first()
         return friend
 
     @classmethod

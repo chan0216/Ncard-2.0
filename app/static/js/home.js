@@ -17,6 +17,8 @@ boardLinks.forEach((link) => {
   if (board === board_name) {
     let divInsideLink = link.querySelector("div");
     divInsideLink.classList.add("active");
+  } else {
+    link.classList.remove("active");
   }
 });
 
@@ -59,7 +61,6 @@ const renderNextPages = (entries) => {
   };
 
   entries.forEach((entry) => {
-    console.log(page);
     if (entry.isIntersecting && page > 0) {
       funcMap[currentFunction](currentFunction);
     }
@@ -71,6 +72,9 @@ let observer = new IntersectionObserver(renderNextPages, options);
 observer.observe(LoadIcon);
 
 const switchCategory = async (category) => {
+  if (currentFunction == category) {
+    return;
+  }
   observer.unobserve(LoadIcon);
   indexArticles.innerHTML = "";
   page = 0;

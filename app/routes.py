@@ -50,18 +50,10 @@ def init_routes(app):
         return render_template("mate.html")
 
     @app.route('/chats', methods=['GET'])
-    @check_token
-    def redirect_to_last_chat_room(user_id):
-        resp = Message.query_last_room(user_id)
-        if resp:
-            friend_id = resp.friend_id
-            return redirect(url_for('chats', id=friend_id))
-        return redirect(url_for('chats'))
+    def no_chat():
+        return render_template("no-chat.html")
 
     @app.route("/chats/<id>")
     @app.route("/chats/", defaults={'id': None})
     def chats(id):
-        if id:
-            return render_template("chat-room.html")
-        else:
-            return render_template("no-chat.html")
+        return render_template("chat-room.html")

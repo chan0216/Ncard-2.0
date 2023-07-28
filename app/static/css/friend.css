@@ -1,3 +1,6 @@
+main{
+  display: none;
+}
 .friend__card {
   min-height: inherit;
   padding: 20px 60px;

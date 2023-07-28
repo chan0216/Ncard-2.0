@@ -71,7 +71,7 @@ export function renderPage(res, indexArticles) {
 }
 
 function selectid(checkid) {
-  window.location.href = `/posts/${checkid}`;
+  window.open(`/posts/${checkid}`, "_blank");
 }
 
 function getPlainText(html) {

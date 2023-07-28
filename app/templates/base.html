@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +29,7 @@
                         <a class="nav-link" href="/ncard"><i class="bi bi-wallet2"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/chats"><i class="bi bi-envelope-fill"></i></a>
+                        <a class="nav-link chat"><i class="bi bi-envelope-fill"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/my/like"><i class="bi bi-person-fill"></i></a>
@@ -54,6 +54,6 @@
     </main>
 </body>
 {% block link %}
-<!-- <script  type="module" src="../static/js/user.js"></script> -->
 {% endblock %}
+<script type="module" src="../static/js/chat_redirect.js"></script>
 </html>
