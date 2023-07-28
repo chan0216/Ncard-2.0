@@ -3,7 +3,7 @@ version: '3.8'
 services:
     ncard:
         platform: "linux/amd64"
-        image: chan0216/ncard:v2.0.0
+        image: chan0216/ncard:v2.1.0
         restart: unless-stopped
         build:
             context: "."
