@@ -33,8 +33,8 @@ def add_post(user_id):
         data = request.json
         post = post_service.add_post(user_id, data)
         return {'data': post.id}
-    except AddPostError as e:
-        return {'error': str(e)}, 500
+    except Exception as error:
+        return {'error': str(error)}, 500
 
 
 @post_controller.route("/posts/<id>", methods=["GET"])

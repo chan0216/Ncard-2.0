@@ -91,7 +91,7 @@ class PostService:
                              first_img=first_img)
             return post
         except Exception as e:
-            raise AddPostError('新增文章失敗，請稍後再試')
+            raise e
 
     def get_comments(self, post_id, page):
         page = int(page)
