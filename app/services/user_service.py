@@ -1,17 +1,19 @@
+import base64
+import json
 from flask_bcrypt import Bcrypt
 from models.user import User
 from models.friend import Friend
 from models.message import Message
 from models.daily_match import DailyMatch
 from models.friend_request import FriendRequest
+from models.user_post_like import UserPostLike
 from common.utils.error_util import UserNotFoundError, NoFriendsFoundError, UserTypeError
 from common.utils.data_util import selected_columns_to_dict, get_paginated_data
 from common.utils.db_util import add_value, update_value
 from services.auth_service import AuthService
 from datetime import datetime
-from models.user_post_like import UserPostLike
 from common.configs.s3_config import s3
-import base64
+from common.configs.redis_config import redis
 
 bcrypt = Bcrypt()
 auth_service = AuthService()
@@ -20,9 +22,6 @@ UPDATE_TYPE_MAP = {1: 'basic_info', 2: 'match_info', 3: 'match_info'}
 
 
 class UserService:
-
-    def __init__(self):
-        pass
 
     def update_user_profile(self, user_id, data):
         user = User.query_user(user_id=user_id)
@@ -68,6 +67,32 @@ class UserService:
 
         render_num = 9
         render_index = page * render_num
+        redis_key = f'user:{user_id}:friends:{page}'
+        friends_list = None
+        try:
+            friends_list = redis.get(redis_key)
+            if friends_list:
+                friends_list = json.loads(friends_list)
+            else:
+                friends_list = self.get_user_friends_by_db(
+                    user_id, render_index, render_num)
+        except Exception as e:
+            print(e)
+            friends_list = self.get_user_friends_by_db(user_id, render_index,
+                                                       render_num)
+        try:
+            redis.set(redis_key, json.dumps(friends_list))
+        except:
+            pass
+        if len(friends_list) > render_num:
+            next_page = page + 1
+            friends_list = friends_list[:render_num]
+        else:
+            next_page = None
+
+        return friends_list, next_page
+
+    def get_user_friends_by_db(self, user_id, render_index, render_num):
         friends = Friend.query_friends(user_id, render_index, render_num + 1)
         if not friends:
             raise NoFriendsFoundError('找不到好友')
@@ -84,12 +109,7 @@ class UserService:
                 'school': friend_info.school,
                 'image': friend_info.image,
             })
-        if len(friends_list) > render_num:
-            next_page = page + 1
-            friends_list = friends_list[:render_num]
-        else:
-            next_page = None
-        return friends_list, next_page
+        return friends_list
 
     def get_user_match(self, user_id):
         match = DailyMatch.query_user_match(user_id)
@@ -142,6 +162,15 @@ class UserService:
                       friend_id=friend_id,
                       user_id=data['match_id'],
                       message=invitation_from_match_user.message)
+            # 刪除所有跟使用者有關的好友列表的 Redis 鍵
+            try:
+                for key in redis.scan_iter(f"user:{user_id}:friends:*"):
+                    redis.delete(key)
+                for key in redis.scan_iter(
+                        f"user:{data['match_id']}:friends:*"):
+                    redis.delete(key)
+            except:
+                pass
         return is_friend
 
     def get_user_info(self, current_user, query_user):

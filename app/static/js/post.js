@@ -455,14 +455,14 @@ commentBox.addEventListener("input", () => {
   scrollToBottom(commentBox);
 });
 
-commentBox.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    scrollToBottom(commentBox);
-  }
-});
+// commentBox.addEventListener("keydown", (event) => {
+//   if (event.key === "Enter") {
+//     scrollToBottom(commentBox);
+//   }
+// });
 
 function scrollToBottom(element) {
-  element.scrollTop = element.scrollHeight;
+  element.scrollTop = element.scrollHeight - element.clientHeight;
 }
 
 document.querySelectorAll("img").forEach((img) => {
