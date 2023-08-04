@@ -259,7 +259,9 @@ function receiveMessage(data) {
 }
 
 function updatefriend(data) {
-  const updatemsg = document.querySelector(`a[href='/chats/${data.roomId}']`);
+  const updatemsg = document.querySelector(
+    `a.friend__frame[href='/chats/${data.roomId}']`
+  );
   const updateText = updatemsg.querySelector(".friend__msg");
   updateText.textContent = data.message;
   document.querySelector(".friend__list").prepend(updatemsg);

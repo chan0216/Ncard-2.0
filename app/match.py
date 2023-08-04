@@ -15,7 +15,6 @@ query_time = datetime.combine(today, time(hour=23))
 
 
 def query_today_match_user():
-    print(query_time)
     match_dict = {}
     query_sql = """
     SELECT user_id FROM users where type = %s and completed_date < %s

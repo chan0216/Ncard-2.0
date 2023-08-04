@@ -16,19 +16,30 @@ Password：test
 
 ## Technique
 
-### Backend
+### Backend:
 
-- 以 Python Flask 作為後端框架
-- 支援 Google 第三方登入
-- 透過 JWT 實作會員驗證機制
-- 透過 Nginx 進行反向代理
-- 使用 Socket.io 實現即時聊天的功能
-- 使用 Docker 部署專案
-- 使用 S3 儲存照片，並搭配 CloudFront CDN 加快讀取速度
-- 使用 RDS MySQL 儲存數據，並實現資料庫正規化
-- 使用 ElastiCache Redis 存取好友列表快取
+- Python Flask
+- Linux Crontab
+- Google OAuth
+- Socket.io
 
-### Frontend
+### Cloud Services (AWS):
+
+- AWS EC2
+- AWS S3
+- AWS CloudFront
+- AWS ElastiCache for Redis
+- AWS RDS for MySQL
+
+### Web Server:
+
+- Nginx
+
+### Deployment:
+
+- Docker
+
+### Frontend:
 
 - HTML
 - CSS
@@ -58,8 +69,13 @@ Password：test
 
 ### 抽卡配對功能
 
-- 每到午夜十二點，符合抽卡資格者會收到系統隨機配對的匿名卡片，抽到的卡不與之前重複
+- 每到午夜 12 點，符合抽卡資格者會收到系統隨機配對的匿名卡片，抽到的卡不與之前重複
+- 抽卡配對程序於晚上 11 點時使用 Linux Crontab 執行
+- 新使用者若於晚上 10 點前填寫抽卡自我介紹，即可參與當天的配對，否則需等隔天參與
 - 若雙方都送出交友邀請，即可成為卡友聊天
 
-![invite](https://github.com/chan0216/Ncard_2.0/assets/94737861/6d726eaa-02d8-4722-80cc-558ef9b3fdfb)
-![chat](https://github.com/chan0216/Ncard_2.0/assets/94737861/586c3afd-e000-4998-83a2-341290041753)
+  ![invite](https://github.com/chan0216/Ncard_2.0/assets/94737861/6d726eaa-02d8-4722-80cc-558ef9b3fdfb)
+
+- 聊天室以 Socket.io 實作，實現即時聊天的功能
+
+  ![chat](https://github.com/chan0216/Ncard_2.0/assets/94737861/586c3afd-e000-4998-83a2-341290041753)
