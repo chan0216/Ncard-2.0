@@ -65,7 +65,6 @@ function renderSchool(res) {
       this.style.backgroundColor = "";
     });
     schoolDiv.addEventListener("click", function () {
-      console.log(obj);
       let selectedUniversity = document.querySelector("#selectedUniversity");
       selectedUniversity.textContent = obj;
       selectedUniversity.dataset.value = obj;
