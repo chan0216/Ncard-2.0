@@ -1,6 +1,6 @@
-# Ncard
+# Ncard-2.0
 
-本專案參考社群網站 Dcard ，主要功能如下：<br>
+本專案為 [Ncard](https://github.com/chan0216/Ncard) 的優化版本，參考社群網站 Dcard ，主要功能如下：<br>
 
 1.社群功能：使用者可以瀏覽、發文及回應文章，論壇也依照內容不同分作不同討論版。<br> 2.抽卡配對功能：每日進行不重複的抽卡配對，雙方皆送出交友邀請成為好友後，即可開始聊天對話。
 
@@ -50,9 +50,13 @@ Password：test
 
 <img alt="architecture" src="https://github.com/chan0216/Ncard/assets/94737861/442d46ff-3959-4a3c-a9a5-61c3f34d4091">
 
+## Nginx Configuration Files
+請查看 [nginx-configs](https://github.com/chan0216/nginx-configs)
+
 ## Database Schema
 
 <img alt="ncard_eer" src="https://github.com/chan0216/Ncard_2.0/assets/94737861/4d51bc77-0b5f-4885-a403-ca067304d434">
+
 
 ## Introduction
 
