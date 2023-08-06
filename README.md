@@ -46,16 +46,16 @@ Password：test
 - JavaScript
 - Bootstrap
 
+## Database Schema
+
+<img alt="ncard_eer" src="https://github.com/chan0216/Ncard_2.0/assets/94737861/4d51bc77-0b5f-4885-a403-ca067304d434">
+
 ## System Architecture
 
 <img alt="architecture" src="https://github.com/chan0216/Ncard/assets/94737861/442d46ff-3959-4a3c-a9a5-61c3f34d4091">
 
 ## Nginx Configuration Files
 請查看 [nginx-configs](https://github.com/chan0216/nginx-configs)
-
-## Database Schema
-
-<img alt="ncard_eer" src="https://github.com/chan0216/Ncard_2.0/assets/94737861/4d51bc77-0b5f-4885-a403-ca067304d434">
 
 
 ## Introduction
