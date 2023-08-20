@@ -55,7 +55,7 @@ def get_post(id):
         return {'error': str(e)}, 500
 
 
-@post_controller.route("/posts/<int:post_id>/like", methods=["PATCH"])
+@post_controller.route("/posts/<int:post_id>/likes", methods=["PATCH"])
 @check_token
 def patch_post_like(user_id, post_id):
     try:
