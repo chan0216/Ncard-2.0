@@ -20,11 +20,12 @@ def get_new_token():
             res.set_cookie('access_token',
                            user_data.get('access_token'),
                            expires=datetime.datetime.utcnow() +
-                           datetime.timedelta(minutes=60))
+                           datetime.timedelta(minutes=60),
+                           httponly=True)
             res.set_cookie('refresh_token',
                            user_data.get('refresh_token'),
                            expires=datetime.datetime.utcnow() +
-                           datetime.timedelta(days=7))
+                           datetime.timedelta(days=30))
         return res
     except AuthenticationError as e:
         response = make_response({'error': True, 'message': str(e)}, 401)
@@ -48,11 +49,12 @@ def handle_user_auth():
             res.set_cookie('access_token',
                            user_data.get('access_token'),
                            expires=datetime.datetime.utcnow() +
-                           datetime.timedelta(minutes=60))
+                           datetime.timedelta(minutes=60),
+                           httponly=True)
             res.set_cookie('refresh_token',
                            user_data.get('refresh_token'),
                            expires=datetime.datetime.utcnow() +
-                           datetime.timedelta(days=7))
+                           datetime.timedelta(days=30))
         return res
     except AuthenticationError as e:
         return {'error': True, 'message': str(e)}, 401

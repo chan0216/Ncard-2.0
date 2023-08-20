@@ -1,12 +1,12 @@
 import { checkUserStatus } from "./user.js";
 async function getLastChatroomId() {
-  const response = await fetch(`/api/users/me/chatrooms/last`);
+  const response = await fetch(`/api/users/me/chatrooms?last=true`);
   const data = await response.json();
-  let chat_tag = document.querySelector(".chat");
+  let chatTag = document.querySelector(".chat");
   if (data.data) {
-    chat_tag.href = "/chats/" + data.data;
+    chatTag.href = "/chats/" + data.data;
   } else {
-    chat_tag.href = "/chats";
+    chatTag.href = "/chats";
   }
 }
 

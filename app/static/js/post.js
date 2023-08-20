@@ -20,6 +20,10 @@ let commentContainer = document.querySelector(".comment__container");
 let likeBar = document.querySelector(".like__bar");
 let postComment = document.querySelector(".post__comment");
 let main = document.querySelector("main");
+let commentCard = document.querySelector(".comment_card");
+let commentBox = document.querySelector(".comment__box");
+let hasRenderedTitle = false;
+let lastClick = null;
 
 //顯示文章
 const getPost = async () => {
@@ -100,9 +104,6 @@ async function likePost() {
     like.classList.toggle("active");
   }
 }
-
-let commentCard = document.querySelector(".comment_card");
-let hasRenderedTitle = false;
 
 //取得留言
 let page = 0;
@@ -186,10 +187,7 @@ let renderNextPages = (entries) => {
 let observer = new IntersectionObserver(renderNextPages, options);
 observer.observe(LoadIcon);
 
-let commentBox = document.querySelector(".comment__box");
 //上傳圖片
-let lastClick = null;
-
 commentBox.addEventListener("click", function (e) {
   lastClick = { x: e.clientX, y: e.clientY };
 });
@@ -242,7 +240,6 @@ commentBox.ondragover = function (event) {
 commentBox.ondrop = function (event) {
   event.preventDefault();
   let data = event.dataTransfer.getData("text");
-  let text = document.getElementById(data);
   if (event.target.tagName == "img") {
     return;
   }
@@ -454,12 +451,6 @@ function handlePaste(event) {
 commentBox.addEventListener("input", () => {
   scrollToBottom(commentBox);
 });
-
-// commentBox.addEventListener("keydown", (event) => {
-//   if (event.key === "Enter") {
-//     scrollToBottom(commentBox);
-//   }
-// });
 
 function scrollToBottom(element) {
   element.scrollTop = element.scrollHeight - element.clientHeight;
