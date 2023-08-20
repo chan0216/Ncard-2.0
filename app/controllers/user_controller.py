@@ -36,6 +36,16 @@ def update_current_user_profile(user_id):
         return response
 
 
+@user_controller.route("/users/<int:path_user_id>", methods=["GET"])
+@check_token
+def get_user_info(user_id, path_user_id):
+    try:
+        user_data = user_service.get_user_info(user_id, path_user_id)
+        return {'data': user_data}
+    except Exception as e:
+        return {'error': True, 'message': str(e)}, 500
+
+
 @user_controller.route("/users/me/friends", methods=["GET"])
 @check_token
 def get_user_friends(user_id):
@@ -67,33 +77,20 @@ def add_user_invitations(user_id):
     return {'IsFriend': is_friend}
 
 
-@user_controller.route("/users/<int:path_user_id>", methods=["GET"])
-@check_token
-def get_user_info(user_id, path_user_id):
-    try:
-        user_data = user_service.get_user_info(user_id, path_user_id)
-        return {'data': user_data}
-    except Exception as e:
-        return {'error': True, 'message': str(e)}, 500
-
-
 @user_controller.route("/users/me/chatrooms", methods=["GET"])
 @check_token
 def get_user_chatrooms(user_id):
     try:
         page = request.args.get('page')
+        last_chatroom = request.args.get('last')
+
+        if last_chatroom:
+            chatroom_id = user_service.get_last_chatroom(user_id)
+            return {'data': chatroom_id}
+
         chatrooms_list = user_service.get_user_chatrooms(user_id, page)
         return {'data': chatrooms_list}
-    except Exception as e:
-        return {'error': True, 'message': str(e)}, 500
 
-
-@user_controller.route("/users/me/chatrooms/last", methods=["GET"])
-@check_token
-def get_last_chatroom(user_id):
-    try:
-        chatroom_id = user_service.get_last_chatroom(user_id)
-        return {'data': chatroom_id}
     except Exception as e:
         return {'error': True, 'message': str(e)}, 500
 

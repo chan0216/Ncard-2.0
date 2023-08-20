@@ -45,37 +45,40 @@ def query_past_match(user):
     return matched_user_list
 
 
+def backtrack(pairs, remaining_users, match_dict):
+    # 如果已經沒有剩餘用戶需要配對，直接返回配對結果
+    if not remaining_users:
+        return pairs
+
+    user = remaining_users[0]
+    # 計算可以跟當前使用者配對的人
+    available_users = list(
+        set(remaining_users) - set(match_dict[user]) - {user})
+
+    # 如果當前用戶沒有可以配對的用戶
+    if not available_users:
+        return None
+
+    random.shuffle(available_users)
+    for partner in available_users:
+        new_pairs = pairs + [[user, partner]]
+        # 創建一個新的列表，排除當前已經配對過的用戶
+        new_remaining_users = [
+            u for u in remaining_users if u not in [user, partner]
+        ]
+        # 遞迴呼叫 backtrack 進行下一輪配對
+        result = backtrack(new_pairs, new_remaining_users, match_dict)
+        if result:
+            return result
+    return None
+
+
 def make_pairs(match_dict):
     remaining_users = list(match_dict.keys())
     #若配對人數是奇數，移除第一位測試帳號
     if (len(remaining_users) % 2) != 0:
         del remaining_users[0]
-
-    def backtrack(pairs, remaining_users):
-        if not remaining_users:
-            return pairs
-
-        user = remaining_users[0]
-        available_users = list(
-            set(remaining_users) - set(match_dict[user]) - {user})
-
-        if not available_users:
-            return None
-
-        random.shuffle(available_users)
-        for partner in available_users:
-            new_pairs = pairs + [[user, partner]]
-            new_remaining_users = [
-                u for u in remaining_users if u not in [user, partner]
-            ]
-
-            result = backtrack(new_pairs, new_remaining_users)
-            if result is not None:
-                return result
-
-        return None
-
-    pairs = backtrack([], remaining_users)
+    pairs = backtrack([], remaining_users, match_dict)
     return pairs
 
 
