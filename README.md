@@ -4,15 +4,6 @@
 
 1.社群功能：使用者可以瀏覽、發文及回應文章，論壇也依照內容分作不同討論版。<br> 2.抽卡配對功能：每日進行不重複的抽卡配對，雙方皆送出交友邀請成為好友後，即可開始聊天對話。
 
-## Demo
-
-Website URL : https://ncard.chandev.cc/
-
-Test Account
-
-Email：test@test.com
-
-Password：test
 
 ## Technique
 
@@ -51,8 +42,9 @@ Password：test
 <img alt="ncard_eer" src="https://github.com/chan0216/Ncard_2.0/assets/94737861/4d51bc77-0b5f-4885-a403-ca067304d434">
 
 ## System Architecture
+<img  alt="截圖 2025-11-16 晚上8 38 40" src="https://github.com/user-attachments/assets/59287025-c24a-4bbc-a69a-09aabd11c4b9" />
 
-<img alt="architecture" src="https://github.com/chan0216/Ncard/assets/94737861/442d46ff-3959-4a3c-a9a5-61c3f34d4091">
+
 
 ## Nginx Configuration Files
 請查看 [nginx-configs](https://github.com/chan0216/nginx-configs)
